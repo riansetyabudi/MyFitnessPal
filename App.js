@@ -1,20 +1,27 @@
 import React from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import { Android } from 'iconsax-react-native';
+import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { SearchNormal1, User, Notification, MenuBoard, CalendarTick, Book1, Note1, More } from 'iconsax-react-native';
 import Svg, { Circle } from 'react-native-svg';
-
+import { fontType, colors } from './src/theme';
+import MyComponent from './MyComponent';
+import { Items } from './src/components/Items';
 const App = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <Android size="35" color="#FF8A65" />
+          <View style={{padding: 10, backgroundColor: 'white', borderRadius: 50, marginLeft: -1}}>
+            <User size="30" color="#687EFF"/>
+          </View>
         </View>
-        <Text style={styles.headerText}>MyFitnessPal</Text>
+        <Text style={{ fontSize: 30, fontWeight: 'bold',}}>myfitnesspal</Text>
         <View style={styles.headerRight}>
-          <Android size="35" color="#FF8A65" />
+          <View style={{padding: 10, borderRadius: 50, marginLeft: -20}}>
+          <Notification size="32" color="lightgray"/>
+          </View>
         </View>
       </View>
+      <Text style={styles.headerText}>Today</Text>
       <View style={styles.userInfo}>
         {/* Foto User */}
       </View>
@@ -25,7 +32,7 @@ const App = () => {
         /> */}
         {/* View 1 */}
         <View style={styles.additionalView}>
-          <Text style={styles.additionalText}>Calories</Text>
+          <MyComponent namaProps="Calories" />
           <Svg height="300" width="300">
           <Circle
             cx="50"
@@ -45,30 +52,140 @@ const App = () => {
             strokeDasharray={[160, 100]}
             strokeDashoffset="25"
           />
-    <Text style={styles.remainingText}>1500 remaining</Text>
-      </Svg>
-  <View style={styles.columnIcons}>
-    {/* <Android size="32" color="#FF8A65" />
-    <Android size="32" color="#FF8A65" />
-    <Android size="32" color="#FF8A65" /> */}
-  </View>
+        <Text style={styles.remainingText}>1500 remaining</Text>
+        </Svg>
+        <View style={styles.columnIcons}>
+          {/* <Android size="32" color="#FF8A65" />
+          <Android size="32" color="#FF8A65" />
+          <Android size="32" color="#FF8A65" /> */}
+        </View>
         </View>
         {/* View 2 */}
         <View style={styles.steps}>
-          <Text style={styles.additionalText}>View 2</Text>
-
+          <Text style={styles.additionalText}>contoh </Text>
+          {Items.map((Items, index) => (
+            <View style={styles.Items} key={index}>
+              <Image style={styles.image} source={{uri: Items.imageUrl}} />
+              <Text style={styles.itemText}>{Items.text}</Text>
+            </View>
+          ))}
         </View>
         {/* View 3 */}
         <View style={styles.exercise}>
-          <Text style={styles.additionalText}>View 3</Text>
-
+          {/* <Text style={styles.additionalText}>View 3</Text> */}
         </View>
+        
       </View>
-      
+      <View style={searchbar.card}>
+        <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 5}}>
+          <View style={{padding: 10, borderRadius: 50, marginLeft: -15}}>
+            <SearchNormal1 size="32" color="#192655"/>
+          </View>
+          <TextInput
+            style={searchbar.input}
+            placeholder="Search for a food"
+          />
+        </View>
+        <View style={styles.homeBar}>
+          <View style={{alignItems: 'center'}}>
+            <TouchableOpacity onPress={() => {}}>
+              <View style={{padding: 10, borderRadius: 50, marginLeft: 1}}>
+                <MenuBoard size="40" color="#d9e3f0" variant="Bold"/>
+              </View>
+            </TouchableOpacity>
+            <Text style={{color: 'white', marginTop: -3}}>Dashboard</Text>
+          </View>
+          <View style={{alignItems: 'center'}}>
+            <TouchableOpacity onPress={() => {}}>
+              <View style={{padding: 10, borderRadius: 50, marginLeft: 1}}>
+                <CalendarTick size="40" color="#d9e3f0" variant="Bold"/>
+              </View>
+            </TouchableOpacity>
+            <Text style={{color: 'white', marginTop: -3}}>Diary</Text>
+          </View>
+          <View style={{alignItems: 'center'}}>
+            <TouchableOpacity onPress={() => {}}>
+              <View style={{padding: 10, borderRadius: 50, marginLeft: 1}}>
+                <Book1 size="40" color="#d9e3f0" variant="Bold"/>
+              </View>
+            </TouchableOpacity>
+            <Text style={{color: 'white', marginTop: -3}}>Newsfeed</Text>
+          </View>
+          <View style={{alignItems: 'center'}}>
+            <TouchableOpacity onPress={() => {}}>
+              <View style={{padding: 10, borderRadius: 50, marginLeft: 1}}>
+                <Note1 size="40" color="#d9e3f0" variant="Bold"/>
+              </View>
+            </TouchableOpacity>
+            <Text style={{color: 'white', marginTop: -3}}>Plans</Text>
+          </View>
+          <View style={{alignItems: 'center'}}>
+            <TouchableOpacity onPress={() => {}}>
+              <View style={{padding: 10, borderRadius: 50, marginLeft: 1}}>
+                <More size="40" color="#d9e3f0" variant="Bold"/>
+              </View>
+            </TouchableOpacity>  
+            <Text style={{color: 'white', marginTop: -3}}>More</Text>
+          </View>
+        </View>
     </View>
-  );
+        
+  </View>
+);
 };
-
+const searchbar = StyleSheet.create({ //search bar
+  card: {
+    backgroundColor: '#687EFF',
+    borderRadius: 10,
+    padding: 5,
+    shadowColor: 'white',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    elevation: 4,
+    flexDirection: 'center',
+    alignItems: 'center',
+    borderTopLeftRadius: 30,  // Tambahkan ini
+    borderTopRightRadius: 30, // Tambahkan ini
+    justifyContent: 'space-between'
+  },
+  icon: {
+    marginRight: 10,
+    padding: 10,
+  },
+  input: {
+    flex: 1, // Mengisi sisa ruang yang tersedia
+    height: 45,
+    borderColor: '#687EFF',
+    borderWidth: 1,
+    borderRadius: 50,
+    padding: 15,
+    backgroundColor: '#192655',
+    maxWidth: '82%'
+  },
+});
+const category = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 10 
+  },
+  col:{
+    width: '20%',
+    padding: 10,
+  },
+  content: { //icon
+    backgroundColor: 'green',
+    marginTop: 20,
+    borderRadius: 10,
+    height: 60,
+    position: 'relative',
+    justifyContent:'center',
+    alignItems: 'center'
+  },
+  icon:{
+  }
+});
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -90,6 +207,8 @@ const styles = StyleSheet.create({
   headerText: {
     color: '#fff',
     fontSize: 24,
+    fontWeight: 'bold',
+    fontStyle : 'normal'
   },
   userInfo: {
     // Tambahkan gaya untuk foto user di sini
@@ -108,13 +227,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingLeft: 10,
   },
-  additionalView: {
+  additionalView: { //box calories
+    flex: 1,
     backgroundColor: '#F0F0F099',
     padding: 10,
     marginTop: 10,
-    height : '40%',
-    width : '100%',
-    borderRadius: 5,
+    height : '20%',
+    width : '80%',
+    borderRadius: 10,
     alignItems: 'center',
   },
   steps: {
@@ -126,9 +246,15 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
   },
-  additionalText: {
-    fontSize: 18,
+  additionalText: {// tulisan Calories
+    fontSize: 30,
     color: '#fff',
+  },
+  itemText: {// tulisan Calories
+    fontSize: 20,
+    color: '#fff',
+    alignItems: 'center',
+    justifyContent : 'center',
   },
   stats: {
     alignItems: 'center',
@@ -136,7 +262,7 @@ const styles = StyleSheet.create({
   circleChart: {
     // Tambahkan gaya untuk grafik lingkaran di sini
   },
-  remainingText: {
+  remainingText: {//tulisan 1500 remaining
     fontSize: 16,
     marginTop: 10,
   },
@@ -144,6 +270,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 20,
   },
+  homeBar: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 15,
+    marginBottom: 20,
+  },
+  image: {
+    width: 211,
+    height: 109,
+  }
 });
 
 export default App;
