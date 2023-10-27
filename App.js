@@ -46,7 +46,7 @@ const App = () => {
             strokeDashoffset="25"
           />
     <Text style={styles.remainingText}>1500 remaining</Text>
-  </Svg>
+      </Svg>
   <View style={styles.columnIcons}>
     {/* <Android size="32" color="#FF8A65" />
     <Android size="32" color="#FF8A65" />
