@@ -30,8 +30,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#192655',
     maxWidth: '80%'
-  },
-  text
+  }
 });
 
 export default SearchBar;

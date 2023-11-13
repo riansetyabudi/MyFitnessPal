@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { SearchNormal1, User, Notification, MenuBoard, CalendarTick, Book1, Note1, More, Export } from 'iconsax-react-native';
 import Svg, { Circle } from 'react-native-svg';
-import { fontType, colors } from './src/theme';
-import MyComponent from './MyComponent';
-import { Items, ImageFood, SearchBar } from './src/components';
+//import { fontType, colors } from './src/theme';
+import { Items, ImageFood, SearchBar } from '../../components';
 
 export default function Dashboard(){
   return (
-  <ScrollView> 
+   
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerLeft}>
@@ -23,6 +22,7 @@ export default function Dashboard(){
           </View>
         </View>
       </View>
+      <ScrollView>
       <Text style={styles.headerText}>Today</Text>
       <View style={styles.userInfo}>
         {/* Foto User */}
@@ -30,7 +30,6 @@ export default function Dashboard(){
       <View style={styles.content}>
         {/* View 1 */}
         <View style={styles.additionalView}>
-          <MyComponent namaProps="Calories" />
           <Svg height="300" width="300">
           <Circle
             cx="50"
@@ -63,7 +62,7 @@ export default function Dashboard(){
           <Text style={styles.additionalText}>contoh </Text>
           {Items.map((Items, index) => (
             <View style={styles.Items} key={index}>
-              <Image style={styles.image} source={{uri: Items.imageUrl}} />
+              <Image style={styles.image} source={{uri: 'https://pyfahealth.com/wp-content/uploads/2021/08/Beragam-Manfaat-Ini-6-Makanan-Tinggi-Kalori-yang-Baik-untuk-Anda.jpg'}} />
               <Text style={styles.itemText}>{Items.text}</Text>
             </View>
           ))}
@@ -73,6 +72,8 @@ export default function Dashboard(){
           {/* <Text style={styles.additionalText}>View 3</Text> */}
         </View>
       </View>
+      </ScrollView>
+
       <View style={searchbar.card}>
         <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 5}}>
           <View style={{padding: 10, borderRadius: 50, marginLeft: -15}}>
@@ -83,6 +84,7 @@ export default function Dashboard(){
             placeholder="Search for a food"
           />
         </View>
+
         <View style={styles.homeBar}>
           <View style={{alignItems: 'center'}}>
             <TouchableOpacity onPress={() => {}}>
@@ -128,7 +130,7 @@ export default function Dashboard(){
     </View>
         
   </View>
-  </ScrollView>
+  
 );
 };
 const searchbar = StyleSheet.create({ //search bar
@@ -151,7 +153,8 @@ const searchbar = StyleSheet.create({ //search bar
     padding: 10,
   },
   input: {
-    flex: 1, // Mengisi sisa ruang yang tersedia
+    flex: 1,
+    flexDirection: 'row', 
     height: 45,
     borderColor: '#687EFF',
     borderWidth: 1,
@@ -206,7 +209,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 24,
     fontWeight: 'bold',
-    fontStyle : 'normal'
+    fontStyle : 'normal',
+    padding: 10,
   },
   userInfo: {
     // Tambahkan gaya untuk foto user di sini

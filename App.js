@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Dashboard} from './src/screens';
+import {Dashboard, Diary, Newsfeed} from './src/screens';
 export default function App() {
-  return <Dashboard />;
+ return <Newsfeed />;
 }
