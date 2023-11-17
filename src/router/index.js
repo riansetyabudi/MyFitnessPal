@@ -1,28 +1,30 @@
 import React from 'react';
-import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Dashboard, Diary, Newsfeed, Plans} from '../screens';
-import {Home2, LocationDiscover, Receipt21, ProfileCircle} from 'iconsax-react-native'; 
-import { fontType, colors } from '../theme';
+import {MenuBoard, Book1, CalendarTick} from 'iconsax-react-native'; 
+import { fontType, colors } from '../themes';
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
-function MainApp() {
+const Router = () => {
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarHideOnKeyboard: true,
-        tabBarActiveTintColor: colors.blue(),
-        tabBarInactiveTintColor: colors.black(),
+        tabBarActiveTintColor: colors.white(),
+        tabBarInactiveTintColor: colors.white(),
         tabBarStyle: {
           paddingBottom: 10,
           paddingTop: 10,
-          height: 60,
+          height: 70,
+          backgroundColor: '#687EFF',
+          gap: 1,
+          borderTopRightRadius: 15,
+          borderTopLeftRadius: 15,
         },
         tabBarLabelStyle: {
-          marginTop: 5,
+          marginTop: 1,
           fontSize: 10,
-          fontFamily: fontType['Pjs-Medium'],
+          fontFamily: fontType['Pjs-large'],
         },
       }}>
       <Tab.Screen
@@ -31,10 +33,10 @@ function MainApp() {
         options={{
           tabBarLabel: 'Dashboard',
           tabBarIcon: ({focused, color}) => (
-            <Dashboard2
+            <MenuBoard
               color={color}
               variant={focused ? 'Bold' : 'Linear'}
-              size={24}
+              size={35}
             />
           ),
           headerShown: false,
@@ -46,10 +48,10 @@ function MainApp() {
         options={{
           tabBarLabel: 'Diary',
           tabBarIcon: ({focused, color}) => (
-            <LocationDiscover
+            <CalendarTick
               color={color}
               variant={focused ? 'Bold' : 'Linear'}
-              size={24}
+              size={35}
             />
           ),
           headerShown: false,
@@ -61,39 +63,16 @@ function MainApp() {
         options={{
           tabBarLabel: 'Newsfeed',
           tabBarIcon: ({focused, color}) => (
-            <Receipt21
+            <Book1
               color={color}
               variant={focused ? 'Bold' : 'Linear'}
-              size={24}
+              size={35}
             />
           ),
           headerShown: false,
         }}
       />
     </Tab.Navigator>
-  );
-}
-const Router = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="AplikasiUtama"
-        component={AplikasiUtama}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="BlogDetail"
-        component={BlogDetail}
-        options={{
-          headerShown: false, 
-          animationEnabled: true,
-          animationTypeForReplace: 'pop',
-          gestureEnabled: true,
-          gestureDirection : 'horizontal',
-          ...TransitionPresets.SlideFromRightIOS,
-        }}
-      />
-    </Stack.Navigator>
   );
 };
 export default Router;

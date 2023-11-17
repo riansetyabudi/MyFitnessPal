@@ -84,51 +84,7 @@ export default function Dashboard(){
             placeholder="Search for a food"
           />
         </View>
-
-        <View style={styles.homeBar}>
-          <View style={{alignItems: 'center'}}>
-            <TouchableOpacity onPress={() => {}}>
-              <View style={{padding: 10, borderRadius: 50, marginLeft: 1, paddingBottom: 5}}>
-                <MenuBoard size="40" color="#d9e3f0" variant="Bold"/>
-              </View>
-            </TouchableOpacity>
-            <Text style={{color: 'white', marginTop: -3}}>Dashboard</Text>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <TouchableOpacity onPress={() => {}}>
-              <View style={{padding: 10, borderRadius: 50, marginLeft: 1, paddingBottom: 5}}>
-                <CalendarTick size="40" color="#d9e3f0" variant="Bold"/>
-              </View>
-            </TouchableOpacity>
-            <Text style={{color: 'white', marginTop: -3}}>Diary</Text>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <TouchableOpacity onPress={() => {}}>
-              <View style={{padding: 10, borderRadius: 50, marginLeft: 1, paddingBottom: 5}}>
-                <Book1 size="40" color="#d9e3f0" variant="Bold"/>
-              </View>
-            </TouchableOpacity>
-            <Text style={{color: 'white', marginTop: -3}}>Newsfeed</Text>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <TouchableOpacity onPress={() => {}}>
-              <View style={{padding: 10, borderRadius: 50, marginLeft: 1, paddingBottom: 5}}>
-                <Note1 size="40" color="#d9e3f0" variant="Bold"/>
-              </View>
-            </TouchableOpacity>
-            <Text style={{color: 'white', marginTop: -3}}>Plans</Text>
-          </View>
-          <View style={{alignItems: 'center'}}>
-            <TouchableOpacity onPress={() => {}}>
-              <View style={{padding: 10, borderRadius: 50, marginLeft: 1, paddingBottom: 5}}>
-                <More size="40" color="#d9e3f0" variant="Bold"/>
-              </View>
-            </TouchableOpacity>  
-            <Text style={{color: 'white', marginTop: -3}}>More</Text>
-          </View>
-        </View>
     </View>
-        
   </View>
   
 );

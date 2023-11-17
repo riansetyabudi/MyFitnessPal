@@ -1,5 +1,10 @@
 import * as React from 'react';
-import {Dashboard, Diary, Newsfeed} from './src/screens';
+import { NavigationContainer } from '@react-navigation/native';
+import Router from './src/router';
 export default function App() {
- return <Newsfeed />;
-}
+    return (
+        <NavigationContainer>
+         <Router/>
+        </NavigationContainer>
+      );
+    }
