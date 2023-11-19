@@ -1,10 +1,21 @@
-import React, {useState} from 'react';
-import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
-import { MenuBoard, CalendarTick, Book1, Note1, More, ArrowLeft3, HeartCircle, ArrowRight2, ArrowLeft2, ProfileCircle } from 'iconsax-react-native';
-import { Items } from '../../components';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, Animated } from 'react-native';
+import { More, ArrowLeft3, HeartCircle, ProfileCircle } from 'iconsax-react-native';
 export default function Newsfeed(){
+  const [fadeAnim] = useState(new Animated.Value(0));
+  useEffect(() => {
+    Animated.timing(
+      fadeAnim,
+      {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }
+    ).start();
+  }, [fadeAnim]);
+
   return (
-  <View style={styles.container}> 
+  <Animated.View style={{ ...styles.container, opacity: fadeAnim }}>
   <View style={styles.navbar}>
   <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
   <TouchableOpacity onPress={() => {}}>
@@ -82,7 +93,7 @@ export default function Newsfeed(){
   <View style={styles.separator}></View>
   
   <ScrollView>
-  <View style={styles.newsFeed}>
+  <Animated.View style={{ ...styles.newsFeed, opacity: fadeAnim }}>
   <View style={styles.newsFeedHeader}>
     <Text style={styles.newsFeedTitle}>15 Vegan Dishes Up To 28 Grams of Protein</Text>
     <View style={styles.newsFeedMeta}>
@@ -99,9 +110,9 @@ export default function Newsfeed(){
     style={styles.newsFeedImage}
     source={{ uri: 'https://pyfahealth.com/wp-content/uploads/2021/08/Beragam-Manfaat-Ini-6-Makanan-Tinggi-Kalori-yang-Baik-untuk-Anda.jpg' }}
   />
-</View>
+</Animated.View>
 
-<View style={styles.newsFeed}>
+<Animated.View style={{ ...styles.newsFeed, opacity: fadeAnim }}>
   <View style={styles.newsFeedHeader}>
     <Text style={styles.newsFeedTitle}>15 Vegan Dishes Up To 28 Grams of Protein</Text>
     <View style={styles.newsFeedMeta}>
@@ -118,9 +129,9 @@ export default function Newsfeed(){
     style={styles.newsFeedImage}
     source={{ uri: 'https://pyfahealth.com/wp-content/uploads/2021/08/Beragam-Manfaat-Ini-6-Makanan-Tinggi-Kalori-yang-Baik-untuk-Anda.jpg' }}
   />
-</View>
+</Animated.View>
 </ScrollView>
-  </View>
+  </Animated.View>
   );
 };
 

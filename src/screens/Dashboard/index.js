@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { SearchNormal1, User, Notification, MenuBoard, CalendarTick, Book1, Note1, More, Export } from 'iconsax-react-native';
 import Svg, { Circle } from 'react-native-svg';

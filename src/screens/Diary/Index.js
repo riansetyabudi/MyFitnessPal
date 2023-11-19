@@ -1,10 +1,22 @@
-import React, {useState} from 'react';
-import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
-import { MenuBoard, CalendarTick, Book1, Note1, More, ArrowLeft3, HeartCircle, ArrowRight2, ArrowLeft2 } from 'iconsax-react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
+import { More, ArrowLeft3, HeartCircle, ArrowRight2, ArrowLeft2 } from 'iconsax-react-native';
 
 export default function Diary(){
+  const [fadeAnim] = useState(new Animated.Value(0)); // Initial value for opacity: 0
+
+  React.useEffect(() => {
+    Animated.timing(
+      fadeAnim,
+      {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true,
+      }
+    ).start();
+  }, [fadeAnim]);
   return (
-  <View style={styles.container}> 
+  <Animated.View style={{ ...styles.container, opacity: fadeAnim }}>
   <View style={styles.navbar}>
   <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
   <TouchableOpacity onPress={() => {}}>
@@ -18,7 +30,7 @@ export default function Diary(){
   </View>
   </View>
   </View>
-  <View style={styles.headerToday}>
+  <Animated.View style={{ ...styles.headerToday, opacity: fadeAnim }}>
     <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
           <TouchableOpacity onPress={() => {}}>
         <View style={{ padding: 5, borderRadius: 50 }}>
@@ -75,8 +87,8 @@ export default function Diary(){
 
 <View style={styles.horizontalLine}></View>
 
-  </View>
-<View style={styles.DiaryContainer}>
+</Animated.View>
+<Animated.View style={{ ...styles.DiaryContainer, opacity: fadeAnim }}>
   <ScrollView contentInsetAdjustmentBehavior="automatic">
     {/* Breakfast */}
     <View>
@@ -180,8 +192,8 @@ export default function Diary(){
       </TouchableOpacity>
     </View>
 </ScrollView>
-</View>
-  </View>
+</Animated.View>
+  </Animated.View>
   );
 };
 
