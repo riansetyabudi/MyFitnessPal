@@ -1,14 +1,29 @@
-import React from 'react';
-import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
-import { SearchNormal1, User, Notification, MenuBoard, CalendarTick, Book1, Note1, More, Export } from 'iconsax-react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, Image, ScrollView, Animated } from 'react-native';
+import { SearchNormal1, User, Notification } from 'iconsax-react-native';
 import Svg, { Circle } from 'react-native-svg';
-//import { fontType, colors } from './src/theme';
-import { Items, ImageFood, SearchBar } from '../../components';
+import { Items } from '../../components';
+import { fonts, colors } from '../../themes'
+import { useNavigation } from "@react-navigation/native";
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+
 
 export default function Dashboard(){
+  const [fadeAnim] = useState(new Animated.Value(0)); // Initial value for opacity: 0
+  const navigation = useNavigation();
+  React.useEffect(() => {
+    Animated.timing(
+      fadeAnim,
+      {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }
+    ).start();
+  }, [fadeAnim]);
   return (
    
-    <View style={styles.container}>
+    <Animated.View style={{ ...styles.container, opacity: fadeAnim }}>
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <View style={{padding: 10, backgroundColor: 'white', borderRadius: 50, marginLeft: -1}}>
@@ -85,24 +100,22 @@ export default function Dashboard(){
           />
         </View>
     </View>
-  </View>
+  </Animated.View>
   
 );
 };
 const searchbar = StyleSheet.create({ //search bar
   card: {
     backgroundColor: '#687EFF',
-    borderRadius: 10,
+    borderRadius: 5,
     padding: 5,
-    shadowColor: 'white',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    elevation: 4,
+    shadowOffset: { width: 5, height: 2 },
+    shadowOpacity: 1,
     flexDirection: 'center',
     alignItems: 'center',
-    borderTopLeftRadius: 30,  // Tambahkan ini
-    borderTopRightRadius: 30, // Tambahkan ini
-    justifyContent: 'space-between'
+    borderTopLeftRadius: 50,  // Tambahkan ini
+    borderTopRightRadius: 50, // Tambahkan ini
+    justifyContent: 'space-between',
   },
   icon: {
     marginRight: 10,

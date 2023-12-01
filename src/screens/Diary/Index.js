@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Animated } from 'react-native';
 import { More, ArrowLeft3, HeartCircle, ArrowRight2, ArrowLeft2 } from 'iconsax-react-native';
+import { useNavigation } from "@react-navigation/native";
 
 export default function Diary(){
   const [fadeAnim] = useState(new Animated.Value(0)); // Initial value for opacity: 0
@@ -10,7 +11,7 @@ export default function Diary(){
       fadeAnim,
       {
         toValue: 1,
-        duration: 1000,
+        duration: 500,
         useNativeDriver: true,
       }
     ).start();

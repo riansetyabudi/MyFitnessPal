@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, Animated } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, Animated, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { More, ArrowLeft3, HeartCircle, ProfileCircle } from 'iconsax-react-native';
+import { useNavigation } from "@react-navigation/native";
 export default function Newsfeed(){
   const [fadeAnim] = useState(new Animated.Value(0));
+  const navigation = useNavigation();
   useEffect(() => {
     Animated.timing(
       fadeAnim,
@@ -14,11 +16,17 @@ export default function Newsfeed(){
     ).start();
   }, [fadeAnim]);
 
+  const handleTextInputPress = () => {
+    // Navigate to the 'addBlog' screen when the TextInput is pressed
+    navigation.navigate('AddBlogForm');
+  };
+
   return (
+  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
   <Animated.View style={{ ...styles.container, opacity: fadeAnim }}>
   <View style={styles.navbar}>
   <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-  <TouchableOpacity onPress={() => {}}>
+  <TouchableOpacity onPress={() => setIsVisible(!isVisible)}>
   <View style={{ padding: 5, borderRadius: 50 }}>
     <ArrowLeft3 size="40" color="#d9e3f0" variant="Bold" />
   </View>
@@ -80,15 +88,16 @@ export default function Newsfeed(){
 <View style={styles.horizontalLine}></View>
 </View>
 
-  <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
-    <TouchableOpacity>
-      <ProfileCircle size="50" color="#d9e3f0" variant="Bold" />
-    </TouchableOpacity>
-    <TextInput
-      style={styles.input}
-      placeholder="Share something..."
-    />
-  </View>
+<View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
+  <TouchableOpacity>
+    <ProfileCircle size="50" color="#d9e3f0" variant="Bold" />
+  </TouchableOpacity>
+  <TextInput
+    style={styles.input}
+    placeholder="Share something..."
+    onFocus={handleTextInputPress} 
+  />
+</View>
 
   <View style={styles.separator}></View>
   
@@ -132,6 +141,7 @@ export default function Newsfeed(){
 </Animated.View>
 </ScrollView>
   </Animated.View>
+  </TouchableWithoutFeedback>
   );
 };
 
