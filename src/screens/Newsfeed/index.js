@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, Animated, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, Animated, TouchableWithoutFeedback, Keyboard, RefreshControl } from 'react-native';
 import { More, ArrowLeft3, HeartCircle, ProfileCircle } from 'iconsax-react-native';
 import { useNavigation } from "@react-navigation/native";
+import axios from 'axios';
 export default function Newsfeed(){
   const [fadeAnim] = useState(new Animated.Value(0));
   const navigation = useNavigation();
+  const [loading, setLoading] = useState(true);
+  const [blogData, setBlogData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
   useEffect(() => {
     Animated.timing(
       fadeAnim,
@@ -18,8 +22,28 @@ export default function Newsfeed(){
 
   const handleTextInputPress = () => {
     // Navigate to the 'addBlog' screen when the TextInput is pressed
-    navigation.navigate('AddBlogForm');
+    navigation.navigate('AddBlog');
   };
+
+  const getDataBlog = async () => {
+    try {
+      const response = await axios.get(
+        'https://6571359b09586eff66424f38.mockapi.io/myfitnesspal/:blog',
+      );
+      setBlogData(response.data);
+      setLoading(false)
+    } catch (error) {
+        console.error(error);
+    }
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      getDataBlog()
+      setRefreshing(false);
+    }, 1500);
+  }, []);
 
   return (
   <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -101,7 +125,10 @@ export default function Newsfeed(){
 
   <View style={styles.separator}></View>
   
-  <ScrollView>
+  <ScrollView
+  refreshControl={
+    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+  }>
   <Animated.View style={{ ...styles.newsFeed, opacity: fadeAnim }}>
   <View style={styles.newsFeedHeader}>
     <Text style={styles.newsFeedTitle}>15 Vegan Dishes Up To 28 Grams of Protein</Text>

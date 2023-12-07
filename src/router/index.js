@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
-import { Dashboard, Diary, Newsfeed, Plans, Search, AddBlogForm } from '../screens';
+import { Dashboard, Diary, Newsfeed, AddBlogForm, EditBlogForm } from '../screens';
 import { MenuBoard, Book1, CalendarTick } from 'iconsax-react-native';
 import { fontType, colors } from '../themes';
 
@@ -70,10 +70,29 @@ const MainTabs = () => {
 
 const Router = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="MainTabs">
+      <Stack.Screen
+        name="MainTabs"
+        component={MainTabs}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         name="AddBlog"
         component={AddBlogForm}
+        options={{
+          headerShown: false,
+          animationEnabled: true,
+          animationTypeForReplace: 'pop',
+          gestureEnabled: true,
+          gestureDirection: 'horizontal',
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      />
+      <Stack.Screen
+        name="EditBlog"
+        component={EditBlogForm}
         options={{
           headerShown: false,
           animationEnabled: true,
