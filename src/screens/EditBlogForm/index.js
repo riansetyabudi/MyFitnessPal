@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity, StyleSheet, ScrollView, ActivityIndicator} from 'react-native';
-import {ArrowLeft} from 'iconsax-react-native';
+import {ArrowLeft, Send2} from 'iconsax-react-native';
 import {useNavigation} from '@react-navigation/native';
 import {fontType, colors} from '../../themes';
 import axios from 'axios';
 
 const EditBlogForm = ({route}) => {
-const {blogId} = route.params;
+const {blogId} = route?.params || {};
   const dataCategory = [
     {id: 1, name: 'Food'},
     {id: 2, name: 'Sports'},
@@ -40,27 +40,27 @@ const {blogId} = route.params;
   const getBlogById = async () => {
     try {
       const response = await axios.get(
-        `https://6571359b09586eff66424f38.mockapi.io/myfitnesspal/:blog/${blogId}`,
+        `https://6571359b09586eff66424f38.mockapi.io/myfitnesspal/blog/${blogId}`,
       );
       setBlogData({
-        title : response.data.title,
-        content : response.data.content,
-        category : {
-            id : response.data.category.id,
-            name : response.data.category.name
-        }
-      })
-    setImage(response.data.image)
+        title: response.data.title,
+        content: response.data.content,
+        category: {
+          id: response.data.category.id,
+          name: response.data.category.name,
+        },
+      });
+      setImage(response.data.image);
       setLoading(false);
     } catch (error) {
       console.error(error);
     }
   };
+  
   const handleUpdate = async () => {
     setLoading(true);
     try {
-      await axios
-        .put(`https://6571359b09586eff66424f38.mockapi.io/myfitnesspal/:blog/${blogId}`, {
+      await axios.put(`https://6571359b09586eff66424f38.mockapi.io/myfitnesspal/:blog/${blogId}`, {
           title: blogData.title,
           category: blogData.category,
           image,
@@ -83,11 +83,14 @@ const {blogId} = route.params;
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <ArrowLeft color={colors.black()} variant="Linear" size={24} />
+          <ArrowLeft color={colors.white()} variant="Linear" size={24} />
         </TouchableOpacity>
         <View style={{flex: 1, alignItems: 'center'}}>
-          <Text style={styles.title}>Edit Status</Text>
+        <Text style={[styles.title, { color: 'white', fontSize: 20 }]}>Edit Status</Text>
         </View>
+        <TouchableOpacity>
+          <Send2 color={colors.white()} variant="Linear" size={28} onPress={handleUpdate}/>
+        </TouchableOpacity>
       </View>
       <ScrollView
         contentContainerStyle={{
@@ -129,7 +132,7 @@ const {blogId} = route.params;
             style={{
               fontSize: 12,
               fontFamily: fontType['Pjs-Regular'],
-              color: colors.grey(0.6),
+              color: colors.white(),
             }}>
             Category
           </Text>
@@ -137,12 +140,12 @@ const {blogId} = route.params;
             {dataCategory.map((item, index) => {
               const bgColor =
                 item.id === blogData.category.id
-                  ? colors.black()
-                  : colors.grey(0.08);
+                  ? colors.white()
+                  : colors.white(0.08);
               const color =
                 item.id === blogData.category.id
                   ? colors.white()
-                  : colors.grey();
+                  : colors.white();
               return (
                 <TouchableOpacity
                   key={index}
@@ -159,11 +162,6 @@ const {blogId} = route.params;
           </View>
         </View>
       </ScrollView>
-      <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.button} onPress={handleUpdate}>
-          <Text style={styles.buttonLabel}>Update</Text>
-        </TouchableOpacity>
-      </View>
       {loading && (
         <View style={styles.loadingOverlay}>
           <ActivityIndicator size="large" color={colors.blue()} />
@@ -178,7 +176,7 @@ export default EditBlogForm;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.white(),
+    backgroundColor: colors.darkModeBlack(),
   },
   header: {
     paddingHorizontal: 24,

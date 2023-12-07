@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, ScrollView, Animated, TouchableWithoutFeedback, Keyboard, RefreshControl } from 'react-native';
-import { More, ArrowLeft3, HeartCircle, ProfileCircle } from 'iconsax-react-native';
+import { More, ArrowLeft3, HeartCircle, ProfileCircle, Edit2 } from 'iconsax-react-native';
 import { useNavigation } from "@react-navigation/native";
+import {colors} from '../../themes';
 import axios from 'axios';
 export default function Newsfeed(){
   const [fadeAnim] = useState(new Animated.Value(0));
@@ -167,6 +168,11 @@ export default function Newsfeed(){
   />
 </Animated.View>
 </ScrollView>
+<TouchableOpacity
+        style={styles.floatingButton}
+        onPress={() => navigation.navigate('EditBlog')}>
+        <Edit2 color={colors.white()} variant="Linear" size={20} />
+      </TouchableOpacity>
   </Animated.View>
   </TouchableWithoutFeedback>
   );
@@ -194,6 +200,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#192655',//warna bg
+  },
+  floatingButton: {
+    backgroundColor: colors.blue(),
+    padding: 15,
+    position: 'absolute',
+    bottom: 24,
+    right: 24,
+    borderRadius: 10,
+    shadowColor: colors.blue(),
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+
+    elevation: 8,
   },
   headerText: {
     color: '#fff',
