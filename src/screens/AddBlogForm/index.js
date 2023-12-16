@@ -3,7 +3,9 @@ import {View,Text,TextInput,TouchableOpacity,StyleSheet,ScrollView,Image, Activi
 import { AddPhoto, Send2, Back} from "iconsax-react-native";
 import { useNavigation } from "@react-navigation/native";
 import { fontType, colors } from "../../themes";
-import axios from 'axios';
+import ImagePicker from 'react-native-image-crop-picker';
+import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
 
 const AddBlogForm = () => {
   const dataCategory = [
@@ -30,25 +32,28 @@ const AddBlogForm = () => {
     });
   };
   const handleUpload = async () => {
+    let filename = image.substring(image.lastIndexOf('/') + 1);
+    const extension = filename.split('.').pop();
+    const name = filename.split('.').slice(0, -1).join('.');
+    filename = name + Date.now() + '.' + extension;
+    const reference = storage().ref(`blogimages/${filename}`);
+
     setLoading(true);
     try {
-      await axios.post('https://6571359b09586eff66424f38.mockapi.io/myfitnesspal/:blog', {
-          title: blogData.title,
-          category: blogData.category,
-          image,
-          content: blogData.content,
-          createdAt: new Date(),
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      await reference.putFile(image);
+      const url = await reference.getDownloadURL();
+      await firestore().collection('blog').add({
+        title: blogData.title,
+        category: blogData.category,
+        image: url,
+        content: blogData.content,
+        createdAt: new Date(),
+      });
       setLoading(false);
+      console.log('Blog added!');
       navigation.navigate('Newsfeed');
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
     }
   };
   const [image, setImage] = useState(null);
@@ -58,7 +63,20 @@ const AddBlogForm = () => {
   const handleArrowLeftPress = () => {
     navigation.goBack(); // Use goBack to navigate back
   };
-
+  const handleImagePick = async () => {
+    ImagePicker.openPicker({
+      width: 1920,
+      height: 1080,
+      cropping: true,
+    })
+      .then(image => {
+        console.log(image);
+        setImage(image.path);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>

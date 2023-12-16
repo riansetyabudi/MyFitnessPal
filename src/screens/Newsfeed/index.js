@@ -126,10 +126,7 @@ export default function Newsfeed(){
 
   <View style={styles.separator}></View>
   
-  <ScrollView
-  refreshControl={
-    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-  }>
+  <ScrollView>
   <Animated.View style={{ ...styles.newsFeed, opacity: fadeAnim }}>
   <View style={styles.newsFeedHeader}>
     <Text style={styles.newsFeedTitle}>15 Vegan Dishes Up To 28 Grams of Protein</Text>
