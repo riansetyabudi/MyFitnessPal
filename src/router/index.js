@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
-import { Dashboard, Diary, Newsfeed, AddBlogForm, EditBlogForm } from '../screens';
+import { Dashboard, Diary, Newsfeed, AddBlogForm, EditBlogForm, Login, Register, SplashScreen } from '../screens';
 import { MenuBoard, Book1, CalendarTick } from 'iconsax-react-native';
 import { fontType, colors } from '../themes';
 
@@ -70,7 +70,7 @@ const MainTabs = () => {
 
 const Router = () => {
   return (
-    <Stack.Navigator initialRouteName="MainTabs">
+    <Stack.Navigator initialRouteName="SplashScreen">
       <Stack.Screen
         name="MainTabs"
         component={MainTabs}
@@ -101,6 +101,21 @@ const Router = () => {
           gestureDirection: 'horizontal',
           ...TransitionPresets.SlideFromRightIOS,
         }}
+      />
+      <Stack.Screen
+        name="SplashScreen"
+        component={SplashScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Login"
+        component={Login}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );

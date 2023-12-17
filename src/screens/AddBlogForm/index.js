@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import {View,Text,TextInput,TouchableOpacity,StyleSheet,ScrollView,Image, ActivityIndicator} from "react-native";
+import {View,Text,TextInput,TouchableOpacity,StyleSheet,ScrollView,Image, ActivityIndicator, KeyboardAvoidingView} from "react-native";
 import { AddPhoto, Send2, Back} from "iconsax-react-native";
 import { useNavigation } from "@react-navigation/native";
 import { fontType, colors } from "../../themes";
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 const AddBlogForm = () => {
   const dataCategory = [
@@ -48,6 +49,7 @@ const AddBlogForm = () => {
         image: url,
         content: blogData.content,
         createdAt: new Date(),
+        authorId
       });
       setLoading(false);
       console.log('Blog added!');
@@ -59,7 +61,7 @@ const AddBlogForm = () => {
   const [image, setImage] = useState(null);
   const navigation = useNavigation();
   const [loading, setLoading] = useState(false);
-
+  const authorId = auth().currentUser.uid;
   const handleArrowLeftPress = () => {
     navigation.goBack(); // Use goBack to navigate back
   };
@@ -78,6 +80,10 @@ const AddBlogForm = () => {
       });
   };
   return (
+    <KeyboardAvoidingView
+      style={{flex: 1}}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      enabled>
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handleArrowLeftPress}>
@@ -167,6 +173,7 @@ const AddBlogForm = () => {
         </View>
       </ScrollView>
     </View>
+    </KeyboardAvoidingView>
   );
 };
 
